@@ -1,11 +1,11 @@
 const db = require("./db.json")
 const fs = require("fs")
-const uuidv1 = require("uuid/v1")
 const util = require("util")
 
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
+const id = 1
 
 class Store{
     read(){
@@ -33,7 +33,7 @@ class Store{
         if(!title || !text){
             throw new Error("can not be blank")
         }
-        const newnote = { title, text, id: uuidv1() }
+        const newnote = { title, text, id: id++ }
         return this.getNote()
         .then((notes) => [...notes, newnote])
         .then((updatedNotes) => this.write(updatedNotes))
