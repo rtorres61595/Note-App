@@ -5,7 +5,7 @@ const util = require("util")
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
-const id = 1
+let id = 1
 
 class Store{
     read(){
@@ -16,10 +16,12 @@ class Store{
     }
     getNote(){
         return this.read().then((notes) => {
+           
             let parsedNotes = [];
             try {
-                parsedNotes.concat(JSON.parse(notes));
-                console.log(parsedNotes)
+                console.log(notes + "-notes-")
+                parsedNotes = parsedNotes.concat(JSON.parse(notes));
+                console.log(parsedNotes + " -getNote- ")
             } catch (err) {
                 parsedNotes = [];
             }   
@@ -29,11 +31,11 @@ class Store{
         })
      }
      addNote(note){
-        const { title, text } = note;
+        let { title, text } = note;
         if(!title || !text){
             throw new Error("can not be blank")
         }
-        const newnote = { title, text, id: id++ }
+        let newnote = { title, text, id: id++ }
         return this.getNote()
         .then((notes) => [...notes, newnote])
         .then((updatedNotes) => this.write(updatedNotes))

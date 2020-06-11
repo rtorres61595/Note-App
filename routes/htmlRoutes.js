@@ -2,31 +2,15 @@ const router = require("express").Router();
 const store = require("../db/store")
 const path = require("path")
 
-//router.get returns all notes
 
-//routher.post addNote(req.body)
+router.get("/", function(req, res) {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 
-//routher.delete (:id) = req.params.id
+router.get("/notes", function(req, res) {
+  
+  res.sendFile(path.join(__dirname, "../public/notes.html"));
+});
 
-//don't forget to export
 
-module.exports = function(app) {
-    // HTML GET Requests
-    // Below code handles when users "visit" a page.
-    // In each of the below cases the user is shown an HTML page of content
-    // ---------------------------------------------------------------------------
-  
-    app.get("/index", function(req, res) {
-      res.sendFile(path.join(__dirname, "../public/index.html"));
-    });
-  
-    app.get("/notes", function(req, res) {
-      res.sendFile(path.join(__dirname, "../public/notes.html"));
-    });
-  
-    // // If no matching route is found default to home
-    // app.get("*", function(req, res) {
-    //   res.sendFile(path.join(__dirname, "../public/index.html"));
-    // });
-  };
-  
+module.exports = router;

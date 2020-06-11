@@ -1,5 +1,7 @@
 const router = require("express").Router();
-const store = require("../db/store")
+const store = require("../db/store.js")
+
+
 
 //router.get returns all notes
 
@@ -9,19 +11,17 @@ const store = require("../db/store")
 
 //don't forget to export
 
-module.exports = (app) => {
+router.get("/notes", function(req, res){
+    store.getNote();
+});
 
-    app.get("api/store", function(req, res){
-        res.json(notes);
-    });
+router.post("/notes", function(req, res){
+    console.log(req.body)
+    new store().addNote()(req.body)
+    
+});
+router.delete ("/notes", function(req, res){
+    removeNote((id) = req.params.id)})
 
-    app.post("api/store", function(req, res){
-        addNote.push(req.body);
-        res.json(true);
-    });
 
-    app.delete("api/store", function(req, res){
-        res.json({id: req.params.id})
-    });
-
-};
+module.exports = router;
