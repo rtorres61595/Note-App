@@ -12,16 +12,20 @@ const store = require("../db/store.js")
 //don't forget to export
 
 router.get("/notes", function(req, res){
-    store.getNote();
+    store.getNote().then(notes => res.json(notes)) 
 });
 
 router.post("/notes", function(req, res){
     console.log(req.body)
-    new store().addNote()(req.body)
+    store.addNote(req.body).then(notes => res.json(notes)) 
+
     
 });
-router.delete ("/notes", function(req, res){
-    removeNote((id) = req.params.id)})
+router.delete ("/notes/:id", function(req, res){
+
+    console.log('id')
+    store.removeNote(parseInt(req.params.id)).then( ()=> res.json({ok: true}) 
+)})
 
 
 module.exports = router;

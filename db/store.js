@@ -19,9 +19,7 @@ class Store{
            
             let parsedNotes = [];
             try {
-                console.log(notes + "-notes-")
                 parsedNotes = parsedNotes.concat(JSON.parse(notes));
-                console.log(parsedNotes + " -getNote- ")
             } catch (err) {
                 parsedNotes = [];
             }   
@@ -43,8 +41,15 @@ class Store{
     }
     removeNote(id){
         return this.getNote()
-        .then((notes)=> notes.filter((note) => note.id !== id))
-        .then((filteredNotes) => this.write(filteredNotes))
+        .then(notes => notes.filter( note => {
+            
+            return note.id !== id
+        }))
+        
+        .then((filteredNotes) => {
+            return this.write(filteredNotes)
+        })
     }
+    
 }
 module.exports  = new Store()
