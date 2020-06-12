@@ -16,9 +16,7 @@ router.get("/notes", function(req, res){
 });
 
 router.post("/notes", function(req, res){
-    console.log(req.body)
     store.addNote(req.body).then(notes => res.json(notes)) 
-
     
 });
 router.delete ("/notes/:id", function(req, res){
